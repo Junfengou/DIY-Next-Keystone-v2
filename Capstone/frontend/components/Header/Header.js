@@ -4,6 +4,7 @@ import ButtonStyles from "../styles/ButtonStyles";
 import Nav from "./Nav";
 import Link from "next/link";
 import useUser from "../auth/User";
+import SignOut from "../auth/Signout";
 
 function Header() {
 	const user = useUser();
@@ -26,21 +27,15 @@ function Header() {
 							<p>cart</p>
 						</ButtonStyles>
 						<ButtonStyles>
-							{/* <SignOut /> */}
-							<p>signout</p>
+							<SignOut />
 						</ButtonStyles>
 						{/* <Cart /> */}
 					</div>
 				)}
 				{!user && (
-					<>
+					<Link href="/signin">
 						<ButtonStyles className="uppercase">Sign in</ButtonStyles>
-						{/*
-                        <Link href="/signin">
-                            <ButtonStyles className="uppercase">Sign in</ButtonStyles>
-                        </Link>
-                     */}
-					</>
+					</Link>
 				)}
 			</HeaderStyles>
 		</NavStyles>
