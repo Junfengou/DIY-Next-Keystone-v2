@@ -9,6 +9,14 @@ export const CURRENT_USER_QUERY = gql`
 				name
 				username
 				email
+				cart {
+					id
+					storage {
+						unitSize
+						price
+						unitNum
+					}
+				}
 			}
 		}
 	}

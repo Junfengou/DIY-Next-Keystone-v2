@@ -1,17 +1,20 @@
-import React from 'react'
+import React from "react";
 import withData from "../lib/withData";
 import Page from "../components/Page";
 import { ApolloProvider } from "@apollo/client";
-import "tailwindcss/tailwind.css"
+import { CartStateProvider } from "../lib/CartState";
+import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps, apollo }) {
-    return (
-        <ApolloProvider client={apollo}>
-			<Page>
-				<Component {...pageProps} />
-			</Page>
+	return (
+		<ApolloProvider client={apollo}>
+			<CartStateProvider>
+				<Page>
+					<Component {...pageProps} />
+				</Page>
+			</CartStateProvider>
 		</ApolloProvider>
-    )
+	);
 }
 
 MyApp.getInitialProps = async function ({ Component, ctx }) {

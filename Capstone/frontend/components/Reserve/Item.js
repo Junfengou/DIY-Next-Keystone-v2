@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import useUser from "../auth/User";
+import AddItem from "../Cart/AddItem";
 // import AddItem from "../Cart/AddItem";
 
 function Item(item) {
@@ -18,7 +20,7 @@ function Item(item) {
 			<div className="tagFooter">
 				<h1>{unitNum}</h1>
 				<p>{status}</p>
-				<button>Add to cart</button>
+				<AddItem id={id} />
 			</div>
 		</UnitStyle>
 	);
@@ -52,6 +54,14 @@ const UnitStyle = styled.div`
 		justify-content: space-around;
 		align-items: center;
 		margin: 0 2rem;
+	}
+
+	button {
+		width: 10rem;
+		height: 4rem;
+		background: var(--orange);
+		float: right;
+		margin: 1rem;
 	}
 `;
 

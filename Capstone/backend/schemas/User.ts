@@ -1,5 +1,5 @@
 import { list } from "@keystone-next/keystone/schema";
-import { text, password, integer, select } from "@keystone-next/fields";
+import { text, password, integer, select, relationship } from "@keystone-next/fields";
 
 
 export const User = list({
@@ -16,5 +16,10 @@ export const User = list({
         phone: text({isRequired: true}),
         drlic: text({isRequired: true}),
         additionalInfo: text(), 
+        cart: relationship({ 
+            ref: 'CartItem.user',
+            // user can have multiple items in the cart
+            many: true,
+        }),
     }
 })

@@ -11,6 +11,7 @@ import { perPage } from "../../config";
 const ALL_STORAGE_QUERY = gql`
 	query ALL_STORAGE_QUERY($skip: Int = 0, $first: Int) {
 		storages: allStorages(first: $first, skip: $skip) {
+			id
 			unitSize
 			description
 			unitNum

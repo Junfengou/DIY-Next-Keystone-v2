@@ -1,9 +1,11 @@
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { withItemData, statelessSessions } from "@keystone-next/keystone/session";
 import { createAuth } from "@keystone-next/auth";
-import { User } from "./schemas/User"
-import { Storage } from "./schemas/Storage"
+import { User } from "./schemas/User";
+import { Storage } from "./schemas/Storage";
+import { CartItem } from "./schemas/CartItem";
 import 'dotenv/config';
+import { extendGraphqlSchema } from './mutations';
 import { insertSeedData } from './seed-data';
 
 const databaseURL =
@@ -47,8 +49,11 @@ config({
   },
   lists: createSchema({
     // Schema items go in here
-    User, Storage
+    User, Storage, CartItem
   }),
+
+  extendGraphqlSchema,
+
   ui: {
     // TODO: change this for roles
     

@@ -5,6 +5,8 @@ import Nav from "./Nav";
 import Link from "next/link";
 import useUser from "../auth/User";
 import SignOut from "../auth/Signout";
+import Cart from "../Cart/Cart";
+import CartButton from "../Cart/CartButton";
 
 function Header() {
 	const user = useUser();
@@ -22,13 +24,12 @@ function Header() {
 				{user && (
 					<div className="btns">
 						<ButtonStyles>
-							{/* <CartButton /> */}
-							<p>cart</p>
+							<CartButton />
 						</ButtonStyles>
 						<ButtonStyles>
 							<SignOut />
 						</ButtonStyles>
-						{/* <Cart /> */}
+						<Cart />
 					</div>
 				)}
 				{!user && (
