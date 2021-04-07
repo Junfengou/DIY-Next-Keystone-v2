@@ -45,11 +45,20 @@ const CartStyles = styled.div`
 	}
 
 	.info {
-		/* border: solid red; */
 		display: flex;
 		justify-content: space-between;
 		margin-top: 2rem;
 		/* padding: 1rem; */
+	}
+	.date {
+		display: flex;
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.datePicker {
+		width: 100%;
+		border: solid 1px var(--orange);
 	}
 `;
 
