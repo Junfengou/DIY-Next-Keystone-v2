@@ -8,7 +8,6 @@ import SignOut from "../auth/Signout";
 
 function Header() {
 	const user = useUser();
-	console.log({ user });
 	return (
 		<NavStyles>
 			<HeaderStyles>

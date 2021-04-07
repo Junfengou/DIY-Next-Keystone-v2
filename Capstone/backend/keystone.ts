@@ -2,7 +2,9 @@ import { config, createSchema } from '@keystone-next/keystone/schema';
 import { withItemData, statelessSessions } from "@keystone-next/keystone/session";
 import { createAuth } from "@keystone-next/auth";
 import { User } from "./schemas/User"
+import { Storage } from "./schemas/Storage"
 import 'dotenv/config';
+import { insertSeedData } from './seed-data';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits-tutorial';
@@ -34,11 +36,18 @@ config({
   db: {
     adapter: 'mongoose',
     url: databaseURL,
-    // TODO: Add data seeding here
+    // These code here will just populate the product schema with bunch of pre-recorded products by running one command
+    // so you don't have to manually add in all the products for testing purposes
+    async onConnect(keystone) {
+      console.log('Connected to the database!');
+      if (process.argv.includes('--seed-data')) {
+        await insertSeedData(keystone);
+      }
+    },
   },
   lists: createSchema({
     // Schema items go in here
-    User
+    User, Storage
   }),
   ui: {
     // TODO: change this for roles

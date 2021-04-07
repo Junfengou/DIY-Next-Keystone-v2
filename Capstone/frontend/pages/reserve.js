@@ -1,11 +1,3 @@
-import React from 'react'
+import ReservePage from "./reserve/index";
 
-function reserve() {
-    return (
-        <div>
-            <p>Reserve page</p>
-        </div>
-    )
-}
-
-export default reserve
+export default ReservePage;
