@@ -21,5 +21,6 @@ export const User = list({
             // user can have multiple items in the cart
             many: true,
         }),
+        orders: relationship({ ref: 'Rental.user', many: true }),
     }
 })

@@ -4,6 +4,7 @@ import { createAuth } from "@keystone-next/auth";
 import { User } from "./schemas/User";
 import { Storage } from "./schemas/Storage";
 import { CartItem } from "./schemas/CartItem";
+import { Rental } from "./schemas/Rental";
 import 'dotenv/config';
 import { extendGraphqlSchema } from './mutations';
 import { insertSeedData } from './seed-data';
@@ -49,7 +50,7 @@ config({
   },
   lists: createSchema({
     // Schema items go in here
-    User, Storage, CartItem
+    User, Storage, CartItem, Rental
   }),
 
   extendGraphqlSchema,

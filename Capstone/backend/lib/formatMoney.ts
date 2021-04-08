@@ -5,5 +5,5 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 export default function formatMoney(cents: number) {
   const dollars = cents / 100;
-  return formatter.format(dollars);
+  return formatter.format(dollars * 100);
 }

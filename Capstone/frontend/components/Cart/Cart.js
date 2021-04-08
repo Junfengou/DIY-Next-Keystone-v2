@@ -9,6 +9,7 @@ import CartItem from "./CartItem";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import formatMoney from "../../lib/FormatMoney";
+import Checkout from "./Checkout";
 
 function Cart() {
 	const { cartOpen, toggleCart } = useCart();
@@ -61,6 +62,7 @@ function Cart() {
 			</ul>
 			<footer>
 				<p>Total: {`${formatMoney(CalculateTotal)}`} </p>
+				<Checkout cart={thisUser.cart} />
 			</footer>
 		</CartStyles>
 	);
