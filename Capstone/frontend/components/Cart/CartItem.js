@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import formatMoney from "../../lib/FormatMoney";
 import DeleteItem from "./DeleteItem";
 
 const CartItemStyles = styled.li`
@@ -23,7 +24,7 @@ function CartItem({ item }) {
 	return (
 		<CartItemStyles>
 			<h3>{item.storage.unitSize}</h3>
-			<p>${item.storage.price}</p>
+			<p>{formatMoney(item.storage.price)}</p>
 			<p>{item.storage.unitNum}</p>
 			<DeleteItem id={item.id} />
 		</CartItemStyles>

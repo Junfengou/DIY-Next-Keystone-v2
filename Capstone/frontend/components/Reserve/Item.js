@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import formatMoney from "../../lib/FormatMoney";
 import useUser from "../auth/User";
 import AddItem from "../Cart/AddItem";
 // import AddItem from "../Cart/AddItem";
@@ -9,8 +10,8 @@ function Item(item) {
 	return (
 		<UnitStyle>
 			<div className="tagHeader">
-				<h1>{unitSize}</h1>
-				<p>${price}</p>
+				<h1>Size: {unitSize}</h1>
+				<p>{formatMoney(price)}</p>
 			</div>
 
 			<div className="tagBody">
@@ -18,7 +19,7 @@ function Item(item) {
 			</div>
 
 			<div className="tagFooter">
-				<h1>{unitNum}</h1>
+				<h1>Unit #{unitNum}</h1>
 				<p>{status}</p>
 				<AddItem id={id} />
 			</div>
@@ -53,7 +54,7 @@ const UnitStyle = styled.div`
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		margin: 0 2rem;
+		/* border: solid red; */
 	}
 
 	button {
@@ -64,69 +65,3 @@ const UnitStyle = styled.div`
 		margin: 1rem;
 	}
 `;
-
-/*
-const ItemStyles = styled.div`
-	border: solid var(--orange);
-	background-color: rgba(205, 205, 205, 0.6);
-	max-width: 1500px;
-	.cardWrapper {
-		margin: 1rem;
-	}
-
-	.section {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	button {
-		width: 10rem;
-		height: 4rem;
-		background: var(--orange);
-		float: right;
-		margin: 1rem;
-	}
-
-	//@media only screen and (max-width: 1000px)
-	@media (max-width: 700px) {
-		width: 50rem;
-
-		.cardWrapper {
-			font-size: 1.2rem;
-		}
-
-		button {
-			width: 8rem;
-			height: 3rem;
-			font-size: 1rem;
-		}
-	}
-
-	@media (max-width: 550px) {
-		width: 30rem;
-
-		.cardWrapper {
-			font-size: 1.2rem;
-		}
-
-		button {
-			width: 6rem;
-			height: 3rem;
-			font-size: 1rem;
-		}
-	}
-`;
-
-<ItemStyles>
-				<div className="cardWrapper">
-					<div className="section">
-						<h1>Size: {unitSize} </h1>
-						<p>${price}</p>
-					</div>
-
-					<p>Features: {description}</p>
-					 <AddItem id={id} />  
-                </div>
-</ItemStyles>
-
-*/

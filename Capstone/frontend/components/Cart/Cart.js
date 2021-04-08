@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "../../lib/CartState";
 import useUser from "../auth/User";
 import CartStyles from "../styles/CartStyles";
 import CloseButton from "../styles/CloseButton";
 import UsernameStyles from "../styles/UsernameStyles";
-// import CartItem from "./CartItem";
 import { BiRightArrow } from "react-icons/bi";
 import CartItem from "./CartItem";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import formatMoney from "../../lib/FormatMoney";
 
 function Cart() {
 	const { cartOpen, toggleCart } = useCart();
@@ -18,9 +18,11 @@ function Cart() {
 	const [year, setYear] = useState("");
 	const thisUser = useUser();
 
-	console.log({ month }, { day }, { year });
-
 	if (!thisUser) return null;
+
+	const CalculateTotal = thisUser.cart.reduce((tally, item) => {
+		return tally + item.storage.price;
+	}, 0);
 
 	return (
 		<CartStyles open={cartOpen}>
@@ -57,8 +59,29 @@ function Cart() {
 					<CartItem key={item.storage.id} item={item} />
 				))}
 			</ul>
+			<footer>
+				<p>Total: {`${formatMoney(CalculateTotal)}`} </p>
+			</footer>
 		</CartStyles>
 	);
 }
 
 export default Cart;
+
+/*
+	const priceArr = [];
+	thisUser.cart.map((item) => {
+		{
+			priceArr.push(item.storage.price);
+		}
+	});
+
+	useEffect(() => {
+		priceArr.reduce((item, accum) => {
+			setTotal((accum += item));
+		});
+	}, [thisUser.cart]);
+
+	console.log({ total });
+
+*/

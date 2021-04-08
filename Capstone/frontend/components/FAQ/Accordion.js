@@ -142,9 +142,9 @@ function Accordion() {
 								<h1 className="title-wrapper">
 									{item.question}
 									{active === index ? (
-										<BsArrowBarDown className="arrow-down" />
-									) : (
 										<BsArrowBarUp className="arrow-up" />
+									) : (
+										<BsArrowBarDown className="arrow-down" />
 									)}
 								</h1>
 							</button>
