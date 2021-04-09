@@ -30,6 +30,7 @@ function Storages({ page }) {
 	});
 	if (loading) return <Loader />;
 	if (error) return <p>Error: {error.message}</p>;
+	console.log({ data });
 	const { storages } = data;
 
 	return (
