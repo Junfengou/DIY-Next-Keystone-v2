@@ -5,6 +5,7 @@ import { User } from "./schemas/User";
 import { Storage } from "./schemas/Storage";
 import { CartItem } from "./schemas/CartItem";
 import { Rental } from "./schemas/Rental";
+import { RentalItem } from "./schemas/RentalItem";
 import 'dotenv/config';
 import { extendGraphqlSchema } from './mutations';
 import { insertSeedData } from './seed-data';
@@ -22,7 +23,7 @@ const { withAuth } = createAuth({
   identityField: 'email',
   secretField: 'password',
   initFirstItem: {
-    fields: ['name', 'email', 'password'],
+    fields: ['email', 'password'],
   },
 });
 
@@ -50,7 +51,7 @@ config({
   },
   lists: createSchema({
     // Schema items go in here
-    User, Storage, CartItem, Rental
+    User, Storage, CartItem, Rental, RentalItem
   }),
 
   extendGraphqlSchema,

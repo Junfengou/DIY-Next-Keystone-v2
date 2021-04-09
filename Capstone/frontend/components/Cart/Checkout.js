@@ -1,33 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "styled-components";
 import Loader from "../Loader";
 import SickButton from "../styles/SickButton";
-/*
+import { CURRENT_USER_QUERY } from "../auth/User";
+import { useCart } from "../../lib/CartState";
 
-const CREATE_RENTAL_MUTATION = gql`
-    mutation CREATE_RENTAL_MUTATION(
-        $paymentAmount: Int
-        $startDay: String
-        $startMonth: String
-        $startYear: String
-        $unitSize: String
-        $unitNum: String
-        $status: String
-        $user: UserRelateToOneInput
-    ) {
-        createRental($paymentAmount: )
+const CHECK_OUT_MUTATION = gql`
+	mutation CHECK_OUT_MUTATION($day: String!, $month: String!, $year: String!) {
+		checkOut(day: $day, month: $month, year: $year) {
+			paymentAmount
+		}
+	}
+`;
 
-    }
-`
+function Checkout({ month, day, year }) {
+	const [loading, setLoading] = useState(false);
+	console.log({ day }, { month }, { year });
+	const { closeCart } = useCart();
+	const [checkOut, { error }] = useMutation(CHECK_OUT_MUTATION, {
+		variables: { day, month, year },
+		refetchQueries: [{ query: CURRENT_USER_QUERY }],
+	});
 
-*/
+	async function handleSubmit(e) {
+		e.preventDefault();
+		setLoading(true);
 
-function Checkout({ cart }) {
-	console.log({ cart });
+		await checkOut();
+		setLoading(false);
+		// closeCart();
+	}
+
+	function emptyInput(e) {
+		alert("Pick a move in date!!");
+		e.preventDefault();
+	}
+
 	return (
-		<CheckoutFormStyles>
+		<CheckoutFormStyles onSubmit={day === "" ? emptyInput : handleSubmit}>
+			{loading && <p>Loading...</p>}
+			{error && <p style={{ fontSize: 12 }}>{error.message}</p>}
 			<SickButton>Check Out Now</SickButton>
 		</CheckoutFormStyles>
 	);

@@ -30,7 +30,7 @@ function Cart() {
 			<header>
 				<UsernameStyles>{`${thisUser.username}'s Cart`}</UsernameStyles>
 				<div className="date">
-					<h1>Start date:</h1>
+					<h1>Move in date:</h1>
 					<DatePicker
 						className="datePicker"
 						selected={startDate}
@@ -62,7 +62,7 @@ function Cart() {
 			</ul>
 			<footer>
 				<p>Total: {`${formatMoney(CalculateTotal)}`} </p>
-				<Checkout cart={thisUser.cart} />
+				<Checkout month={month} day={day} year={year} />
 			</footer>
 		</CartStyles>
 	);

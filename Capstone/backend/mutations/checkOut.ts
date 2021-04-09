@@ -1,14 +1,21 @@
 // This is still VERY confusing, refer back to video #55
 
 import { KeystoneContext } from "@keystone-next/types";
-import {  CartItemCreateInput, RentalCreateInput } from ".././.keystone/schema-types";
+import { CartItemCreateInput, RentalCreateInput } from ".././.keystone/schema-types";
 
+
+interface Arguments {
+    // currentUser: string
+    day: string,
+    month: string,
+    year: string
+}
 
 const graphql = String.raw;
 
  async function checkout(
     root: any,
-    Arguments, 
+    {day, month, year} : Arguments,
     context: KeystoneContext
     ) :  Promise<RentalCreateInput>
     {
@@ -26,6 +33,7 @@ const graphql = String.raw;
             name
             email
             cart {
+                id
                 storage {
                     unitSize
                     description
@@ -37,7 +45,7 @@ const graphql = String.raw;
             
         })
 
-        console.dir(user, { depth: null});
+        // console.dir(user, { depth: null});
         // 2. Calculate the total price
 
         const cartItems = user.cart.filter(cartItem => cartItem.storage);
@@ -48,9 +56,10 @@ const graphql = String.raw;
 
 
         // 4. Convert the cartItems to orderItems
-        const orderItems = cartItems.map(cartItem => {
+        const rentalItems = cartItems.map(cartItem => {
             const orderItem = {
               unitSize: cartItem.storage.unitSize,
+              description: cartItem.storage.description,
               unitNum: cartItem.storage.unitNum,
               price: cartItem.storage.price,
             }
@@ -61,16 +70,22 @@ const graphql = String.raw;
         const order = await context.lists.Rental.createOne({
             data: {
               paymentAmount: amount,
-              items: { create: orderItems },
+              startDay: day,
+              startMonth: month,
+              startYear: year,
+              items: { create: rentalItems },
               user: { connect: { id: userId }}
             }
           });
 
-        // 6. clean up any old cart items
-        const cartItemIds = user.cart.map(cartItem => cartItem.id);
-        await context.lists.CartItem.deleteMany({
-          ids: cartItemIds
-        });
+          const cartItemIds = user.cart.map(cartItem => cartItem.id);
+        
+          await context.lists.CartItem.deleteMany({
+            ids: cartItemIds
+          });
+          
+
+          
         return order;
     }
 

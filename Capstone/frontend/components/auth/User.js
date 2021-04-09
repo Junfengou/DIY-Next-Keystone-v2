@@ -10,12 +10,13 @@ export const CURRENT_USER_QUERY = gql`
 				username
 				email
 				cart {
-					id
 					storage {
 						unitSize
 						price
 						unitNum
+						description
 					}
+					id
 				}
 			}
 		}
